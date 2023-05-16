@@ -6,7 +6,7 @@ use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
 class RedirectIfAuthenticated
 {
     /**
@@ -23,7 +23,29 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $userId=Auth::guard('web')->user()->id;
+
+                $user=User::whereId($userId)->with('roles')->first();
+                $role = 'basicplan';
+                if(isset($user->roles[0]->name))
+                {
+                    $role = $user->roles[0]->name;
+                }
+
+                 switch ($role) {
+                    case 'admin':
+                      return redirect()->route('admin.dashboard');
+                      break;
+                    case 'basicplan':
+                      return redirect()->route('user.dashboard');
+                      break; 
+					case 'premiumplan':
+                      return redirect()->route('user.dashboard');
+                      break;
+                    default:
+                      return redirect()->route('user.dashboard');
+                    break;
+                  }
             }
         }
 

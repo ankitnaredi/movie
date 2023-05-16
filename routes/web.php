@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
+});
+
+Auth::routes();
+
+Route::group(['middleware' => 'role:admin','prefix' => 'admin','as'=>'admin.'], function () {
+    Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+});
+Route::group(['middleware' => 'role:basicplan|role:premiumplan','prefix' => 'user','as'=>'user.'], function () {
+    Route::get('dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
 });
