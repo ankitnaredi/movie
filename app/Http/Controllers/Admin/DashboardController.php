@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\CheckAdminMiddleware;
 use Auth;
 use App\Models\User;
-class DashboardController extends Controller
+use Helper;
+use App\Models\Movie;
+use App\Models\MovieMeta;
+class DashboardController extends CheckAdminMiddleware
 {
     /**
      * Create a new controller instance.

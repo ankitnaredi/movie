@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
 use Helper;
-use App\Models\Movie;
-use App\Models\MovieMeta;
-class DashboardController extends Controller
+class CheckAdminMiddleware extends Controller
 {
     /**
      * Create a new controller instance.
@@ -32,10 +30,12 @@ class DashboardController extends Controller
                 
             switch ($role) {
                    
-                    case 'admin':
-                      return redirect()->route('admin.dashboard');
+                    case 'basicplan':
+                      return redirect()->route('user.dashboard');
                       break; 
-					 
+					 case 'premiumplan':
+                      return redirect()->route('user.dashboard');
+                      break; 
                     
                   }
                   return $next($request);
@@ -49,7 +49,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('user.dashboard');
+        return view('admin.dashboard');
     }
 	public function logout()
 	{
