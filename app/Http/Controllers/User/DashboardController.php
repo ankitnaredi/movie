@@ -48,4 +48,9 @@ class DashboardController extends Controller
     {
         return view('user.dashboard');
     }
+	public function logout()
+	{
+		Auth::guard('web')->logout();
+        return redirect()->route('login');
+	}
 }
