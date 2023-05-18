@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 Route::group(['middleware' => 'role:admin','prefix' => 'admin','as'=>'admin.'], function () {
@@ -41,6 +41,6 @@ Route::group(['middleware' => 'role:admin','prefix' => 'admin','as'=>'admin.'], 
 });
 Route::group(['middleware' => 'role:basicplan|role:premiumplan','prefix' => 'movie','as'=>'movie.'], function () {
     Route::get('dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
-	Route::get('view', [App\Http\Controllers\User\DashboardController::class, 'view'])->name('view');
-	Route::get('logout', [App\Http\Controllers\User\DashboardController::class, 'logout'])->name('logout');
+	Route::get('{id}/view', [App\Http\Controllers\HomeController::class, 'view'])->name('view');
+	Route::get('logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
 });

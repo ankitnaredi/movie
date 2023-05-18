@@ -29,8 +29,13 @@
                 $imageUrl = url('/public/frontend/images/no-image.jpg');
             }
         @endphp
+        @if(strcmp($movie->is_premium_content,'yes')==0 && strcmp($role,'basicplan')==0)
+        <a href="#" class="basicPlanNotPermission">
+        @else
+        <a href="{{route('movie.view',$movie->id)}}">
+        @endif
         <div class="movie">
-          <div class="movie-image"> <span class="play"><span class="name">{{strtoupper($movie->title)}}</span></span> <a href="{{route('movie.view')}}"><img src="{{$imageUrl}}" alt="" /></a> </div>
+          <div class="movie-image"> <span class="play"><span class="name">{{strtoupper($movie->title)}}</span></span> <img src="{{$imageUrl}}" alt="" /> </div>
           
           <div class="rating">
             <p>{{ucfirst($movie->title)}}</p><br>
@@ -49,6 +54,7 @@
             @endphp
         </div>
         </div>
+        </a>
         @if($i%4==0)
         <div class="cl">&nbsp;</div>
         @endif
@@ -62,4 +68,10 @@
     </div>
   
     <div class="cl">&nbsp;</div>
+    <script type="text/javascript">
+        $(".basicPlanNotPermission").on('click',function(e){
+            e.preventDefault();
+            Swal.fire('{{__("Sorry, You can\'t see this content as this is premium, Please ask admin to upgrade your plan")}}');
+        })
+        </script>
     @endsection

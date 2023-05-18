@@ -5,7 +5,9 @@
 
 <link rel="stylesheet" href="{{asset('/public/frontend/css/style.css')}}" type="text/css" media="all" />
 <script type="text/javascript" src="{{asset('/public/frontend/js/jquery-1.4.2.min.js')}}"></script>
+<script src="{{asset('public/vendors/js/vendor.bundle.base.js')}}"></script>
 <script type="text/javascript" src="{{asset('/public/frontend/js/jquery-func.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<title>@yield('title')</title>
    
 
@@ -26,7 +28,7 @@
     <div id="navigation">
       <ul>
         <li><a class="active" href="#">HOME</a></li>
-        
+        <li><a  href="{{route('movie.logout')}}">LOGOUT</a></li>
       </ul>
     </div>
     <div id="sub-navigation">

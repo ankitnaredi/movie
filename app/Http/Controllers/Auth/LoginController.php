@@ -48,8 +48,7 @@ class LoginController extends Controller
                 return redirect()->route('login');
             }
             $userId=Auth::guard('web')->user()->id;
-			echo "dsafDSA";
-			die;
+			
                 $user=User::whereId($userId)->with('roles')->first();
                 $role = 'basicplan';
                 if(isset($user->roles[0]->name))
@@ -62,10 +61,10 @@ class LoginController extends Controller
                       return redirect()->route('admin.dashboard');
                       break; 
                    case 'basicplan':
-                      return redirect()->route('user.dashboard');
+                      return redirect()->route('home');
                       break; 
 					case 'premiumplan':
-                      return redirect()->route('user.dashboard');
+                      return redirect()->route('home');
                       break;
                     
                   }
