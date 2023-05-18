@@ -42,6 +42,7 @@ class MovieController extends CheckAdminMiddleware
 			'released'=>$request->released,
 			'runtime'=>$runtime,
 			'genre'=>$request->genre,
+			'tags'=>$request->tags,
 			'director'=>$request->director,
 			'writer'=>$request->writer,
 			'actors'=>$request->actors,
@@ -145,6 +146,7 @@ class MovieController extends CheckAdminMiddleware
 			'released'=>$request->released,
 			'runtime'=>$runtime,
 			'genre'=>$request->genre,
+			'tags'=>$request->tags,
 			'director'=>$request->director,
 			'writer'=>$request->writer,
 			'actors'=>$request->actors,
@@ -161,6 +163,7 @@ class MovieController extends CheckAdminMiddleware
 			'is_premium_content'=>$request->is_premium,
 			'rent_period'=>(is_numeric($request->rent_period,'')!=0)?$request->rent_period:0,
 			'rent_price'=>(is_numeric($request->rent_price,'')!=0)?$request->rent_price:0,
+			
 		]);
 		$this->insertMovieMeta($movie->id,'poster',$data['Poster']);
 		$this->insertMovieMeta($movie->id,'Language',$data['Language']);
@@ -239,6 +242,7 @@ class MovieController extends CheckAdminMiddleware
 				'boxOffice'=>(isset($data['BoxOffice']))?$data['BoxOffice']:'',
 				'production'=>(isset($data['Production']))?$data['Production']:'',
 				'website'=>(isset($data['Website']))?$data['Website']:'',
+				'tags'=>(isset($data['Genre']))?$data['Genre']:'',
 				'is_premium_content'=>'no'
 			]);
 			if(isset($data['Poster']))

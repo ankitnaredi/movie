@@ -47,6 +47,11 @@
                           <span class="text-danger genreError">@error('genre'){{$message}}@enderror</span>
                         </div>
                         <div class="form-group">
+                          <label for="tags">Tags</label>
+                          <input type="text" class="form-control" name="tags" id="tags" placeholder="Tags" value="{{old('tags')}}">
+                          <span class="text-danger tagsError">@error('tags'){{$message}}@enderror</span>
+                        </div>
+                        <div class="form-group">
                           <label for="director">Director</label>
                           <input type="text" class="form-control" name="director" id="director" placeholder="Director" value="{{old('director')}}">
                           <span class="text-danger directorError">@error('director'){{$message}}@enderror</span>

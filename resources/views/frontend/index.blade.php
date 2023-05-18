@@ -1,9 +1,6 @@
 @extends('layouts.frontend')
 @section('title',"Home")
 @section('content')
-@php
-$movies = Helper::getAllMoviesObject();
-@endphp
 <div id="content">
       <div class="box">
         <div class="head">
@@ -37,10 +34,15 @@ $movies = Helper::getAllMoviesObject();
           
           <div class="rating">
             <p>{{ucfirst($movie->title)}}</p><br>
+            <div class="cl">&nbsp;</div>
+            <p>{{ucfirst($movie->tags)}}</p><br>
+            <div class="cl">&nbsp;</div>
+            <p>${{($movie->rent_price)}}</p><br>
+            <div class="cl">&nbsp;</div>
             @if(strcmp($movie->is_premium_content,'yes')==0)
-                <p>PREMIUM PLAN MOVIE</p>
+                <p>PREMIUM</p>
             @else
-                <p>BASIC PLAN MOVIE</p>
+                <p>BASIC</p>
             @endif
             @php
                 $i++;

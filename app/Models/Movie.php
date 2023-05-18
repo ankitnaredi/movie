@@ -32,7 +32,8 @@ class Movie extends Model
 		'response',
         'is_premium_content',
         'rent_price',
-        'rent_period'
+        'rent_period',
+        'tags'
     ];
 
     /**

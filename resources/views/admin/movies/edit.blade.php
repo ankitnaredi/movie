@@ -43,6 +43,11 @@
                           <span class="text-danger genreError">@error('genre'){{$message}}@enderror</span>
                         </div>
                         <div class="form-group">
+                          <label for="tags">Tags</label>
+                          <input type="text" class="form-control" name="tags" id="tags" placeholder="Tags" value="{{$movie->tags}}">
+                          <span class="text-danger tagsError">@error('tags'){{$message}}@enderror</span>
+                        </div>
+                        <div class="form-group">
                           <label for="director">Director</label>
                           <input type="text" class="form-control" name="director" id="director"  value="{{$movie->director}}" placeholder="Director">
                           <span class="text-danger directorError">@error('director'){{$message}}@enderror</span>
@@ -107,6 +112,17 @@
                           <input type="text" class="form-control" name="website" value="{{$movie->website}}" id="website" placeholder="Website">
                           <span class="text-danger websiteError">@error('website'){{$message}}@enderror</span>
                         </div>
+                        
+                        <div class="form-group">
+                          <label for="rent_price">Rent price</label>
+                          <input type="text" class="form-control" name="rent_price" id="rent_price" onKeyPress="return isNumber()" placeholder="Rent price" value="{{$movie->rent_price}}">
+                          <span class="text-danger rentpriceError">@error('rent_price'){{$message}}@enderror</span>
+                        </div>
+                        <div class="form-group">
+                          <label for="rent_period">Rent period</label>
+                          <input type="text" class="form-control" name="rent_period" id="rent_period" onKeyPress="return isNumber()" placeholder="Rent period" value="{{$movie->rent_period}}">
+                          <span class="text-danger rent_periodError">@error('rent_period'){{$message}}@enderror</span>
+                        </div>
                         <div class="form-group">
                           <label for="Poster">Poster</label>
                           <input type="text" class="form-control" name="Poster" id="Poster" placeholder="Poster" value="{{Helper::getMovieMeta($movie->id,'Poster')}}">
@@ -134,16 +150,7 @@
                                 <option value="yes" @if(strcmp($movie->is_premium_content,'yes')==0) selected @endif>Yes</option>
                           </select>
                         </div>
-                        <div class="form-group">
-                          <label for="rent_price">Rent price</label>
-                          <input type="text" class="form-control" name="rent_price" id="rent_price" onKeyPress="return isNumber()" placeholder="Rent price" value="{{movie->rent_price}}">
-                          <span class="text-danger rentpriceError">@error('rent_price'){{$message}}@enderror</span>
-                        </div>
-                        <div class="form-group">
-                          <label for="rent_period">Rent period</label>
-                          <input type="text" class="form-control" name="rent_period" id="rent_period" onKeyPress="return isNumber()" placeholder="Rent period" value="{{movie->rent_period}}">
-                          <span class="text-danger rent_periodError">@error('rent_period'){{$message}}@enderror</span>
-                        </div>
+                        
                         <div class="mt-3">
                         <button type="submit" class="btn btn-primary">
                                     {{ __('Save') }}

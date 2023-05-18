@@ -34,7 +34,7 @@
       <div id="search">
         <form action="{{url('/')}}" method="get" accept-charset="utf-8">
           <label for="search-field">SEARCH</label>
-          <input type="text" name="search field" placeholder="Enter search here" id="search-field" class="blink search-field"  />
+          <input type="text" name="s" placeholder="Enter search here" id="s" class="blink search-field" value="{{(isset($_GET['s']))?$_GET['s']:''}}" />
           <input type="submit" value="GO!" class="search-button" />
         </form>
       </div>
