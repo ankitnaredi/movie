@@ -13,7 +13,11 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     protected function getMovieMeta($movieId,$movieMetaKey){
         $movie_meta=MovieMeta::where([['movie_id','=',$movieId],['meta_key','LIKE',$movieMetaKey]])->first();
-        return $movie_meta;
+        
         return ($movie_meta)?$movie_meta->meta_value:'';
+    }
+    protected function insertMovieMeta($movieId,$movieMetaKey,$movieMetaValue)
+    {
+        MovieMeta::updateOrCreate(['movie_id'=>$movieId,'meta_key'=>$movieMetaKey,'meta_value'=>$movieMetaValue]);
     }
 }

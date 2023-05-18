@@ -17,8 +17,15 @@
   <link rel="stylesheet" href="{{asset('/public/css/fontawesome/all.min.css')}}">
   <link rel="stylesheet" href="{{asset('/public/css/custom.css')}}">
   <!-- endinject -->
+  <script src="{{asset('public/js/fontawesome/all.min.js')}}"></script>
   <link rel="shortcut icon" href="{{asset('/public/images/favicon.png')}}" />
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{{asset('public/vendors/js/vendor.bundle.base.js')}}"></script>
+      <script src="{{asset('public/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+  	  <script src="{{asset('public/vendors/progressbar.js/progressbar.min.js')}}"></script>
+      <!-- endinject -->
+      <script src="{{asset('public/js/dashboard.js')}}"></script>
+      <script src="{{asset('public/js/common.js')}}"></script>
 	<title>@yield('title')</title>
 
 
@@ -26,6 +33,10 @@
 </head>
 <body>
     <div class="container-scroller">
+        <div class="overlay"></div>
+        <div class="acoda-spinner">
+            <img src="{{asset('public/images/loader.gif')}}" />
+        </div>
     	 @include('layouts.admin.top')
          <div class="container-fluid page-body-wrapper">
             	@include('layouts.admin.sidebar')
@@ -49,11 +60,6 @@
          </div>
     </div>
       <!-- plugins:js -->
-	  <script src="{{asset('public/vendors/js/vendor.bundle.base.js')}}"></script>
-      <script src="{{asset('public/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
-  	  <script src="{{asset('public/vendors/progressbar.js/progressbar.min.js')}}"></script>
-      <!-- endinject -->
-      <script src="{{asset('public/js/dashboard.js')}}"></script>
-      <script src="{{asset('public/js/common.js')}}"></script>
+	  
 </body>
 </html>

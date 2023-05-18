@@ -22,6 +22,19 @@
               </ul>
             </div>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="menu-icon mdi mdi-floor-plan"></i>
+              <span class="menu-title">Actors</span>
+              <i class="menu-arrow"></i> 
+            </a>
+            <div class="collapse show" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+              	<li class="nav-item"> <a class="nav-link" href="{{route('admin.actors.list')}}">List</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('admin.actors.add')}}">Add</a></li>
+              </ul>
+            </div>
+          </li>
           <?php /*?><li class="nav-item nav-category">Forms and Datas</li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">

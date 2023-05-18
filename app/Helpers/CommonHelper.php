@@ -22,8 +22,12 @@ class CommonHelper
 	}
 	public static function getMovieMeta($movieId,$movieMetaKey){
         $movie_meta=MovieMeta::where([['movie_id','=',$movieId],['meta_key','LIKE',$movieMetaKey]])->first();
-        return $movie_meta;
+       
         return ($movie_meta)?$movie_meta->meta_value:'';
     }
+	public static function getAllMoviesObject()
+	{
+		return Movie::get();
+	}
 }
 ?>

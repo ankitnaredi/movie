@@ -6,3 +6,33 @@
     margin:0 auto;
     font-size:16px;
 }
+a.delete path
+{
+    color:red;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1111;
+    background-color: rgba(0, 0, 0, 0.8);
+    bottom: 0;
+    transition: opacity 0.3s ease;
+    -moz-transition: opacity 0.3s ease;
+    -ms-transition: opacity 0.3s ease;
+    -o-transition: opacity 0.3s ease;
+    -webkit-transition: opacity 0.3s ease;
+    opacity: 0.2;
+    display: none;
+}
+.acoda-spinner {
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 9999;
+}

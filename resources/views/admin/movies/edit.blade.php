@@ -9,7 +9,7 @@
                 	<div class="card-body">
                     	<h4 class="card-title">Edit movie</h4>
                         <div class="col-lg-6">
-                        <form id="form_movie_edit" action="{{route('admin.movies.edit.post',$movie->id)}}" onSubmit="return check_form_requirements()">
+                        <form id="form_movie_edit" method="POST" action="{{route('admin.movies.edit.post',$movie->id)}}" onSubmit="return check_form_requirements()">
                         @csrf
                         <div class="form-group">
                           <label for="title">Title *</label>
@@ -33,17 +33,8 @@
                         </div>
                         <div class="form-group">
                           <label for="runtime">Runtime</label>
-                          <div class="row">
-                            <div class="col-md-8">
                             <input type="text" class="form-control" value="{{$movie->runtime}}" name="runtime" id="runtime" placeholder="Runtime" >
-                            </div>
-                        <div class="col-md-4">
-                            <select id="runtimeType" name="runtimeType" class="form-control">
-                                <option value="min" @if(strcmp(Helper::getMovieMeta($movie->id,'runtimetype'),'min')==0) selected @endif>Min</option>
-                                <option value="hour" @if(strcmp(Helper::getMovieMeta($movie->id,'runtimetype'),'hour')==0) selected @endif>Hour</option>  
-                            </select>
-                        </div>
-                            </div>
+                           
                           <span class="text-danger runtimeError">@error('runtime'){{$message}}@enderror</span>
                         </div>
                         <div class="form-group">
@@ -117,11 +108,41 @@
                           <span class="text-danger websiteError">@error('website'){{$message}}@enderror</span>
                         </div>
                         <div class="form-group">
+                          <label for="Poster">Poster</label>
+                          <input type="text" class="form-control" name="Poster" id="Poster" placeholder="Poster" value="{{Helper::getMovieMeta($movie->id,'Poster')}}">
+                          <span class="text-danger PosterError">@error('Poster'){{$message}}@enderror</span>
+                        </div>
+                        <div class="form-group">
+                          <label for="Language">Language</label>
+                          <input type="text" class="form-control" name="Language" id="Language" placeholder="Language" value="{{Helper::getMovieMeta($movie->id,'Language')}}">
+                          <span class="text-danger LanguageError">@error('Language'){{$message}}@enderror</span>
+                        </div>
+                        <div class="form-group">
+                          <label for="Country">Country</label>
+                          <input type="text" class="form-control" name="Country" id="Country" placeholder="Country" value="{{Helper::getMovieMeta($movie->id,'Country')}}">
+                          <span class="text-danger CountryError">@error('Country'){{$message}}@enderror</span>
+                        </div>
+                        <div class="form-group">
+                          <label for="Awards">Awards</label>
+                          <input type="text" class="form-control" name="Awards" id="Awards" placeholder="Awards" value="{{Helper::getMovieMeta($movie->id,'Awards')}}">
+                          <span class="text-danger AwardsError">@error('Awards'){{$message}}@enderror</span>
+                        </div>
+                        <div class="form-group">
                           <label for="is_premium">Is Premium</label>
                           <select id="is_premium" name="is_premium" class="form-control">
                                 <option value="no" @if(strcmp($movie->is_premium_content,'no')==0) selected @endif>No</option>
                                 <option value="yes" @if(strcmp($movie->is_premium_content,'yes')==0) selected @endif>Yes</option>
                           </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="rent_price">Rent price</label>
+                          <input type="text" class="form-control" name="rent_price" id="rent_price" onKeyPress="return isNumber()" placeholder="Rent price" value="{{movie->rent_price}}">
+                          <span class="text-danger rentpriceError">@error('rent_price'){{$message}}@enderror</span>
+                        </div>
+                        <div class="form-group">
+                          <label for="rent_period">Rent period</label>
+                          <input type="text" class="form-control" name="rent_period" id="rent_period" onKeyPress="return isNumber()" placeholder="Rent period" value="{{movie->rent_period}}">
+                          <span class="text-danger rent_periodError">@error('rent_period'){{$message}}@enderror</span>
                         </div>
                         <div class="mt-3">
                         <button type="submit" class="btn btn-primary">
