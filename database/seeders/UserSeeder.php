@@ -23,6 +23,6 @@ class UserSeeder extends Seeder
 		$premiumplan = User::create(['name'=>'Premium plan','email'=>'premiumplan@movie.com','password'=>Hash::make('B76gT~VT1Rvvn0(g')]);
         $premiumplan->assignRole('premiumplan');
 		$basicplan = User::create(['name'=>'Basic plan','email'=>'basicplan@movie.com','password'=>Hash::make('PFSv2vMFGbF$U|Cf')]);
-        $basicplan->assignRole('premiumplan');
+        $basicplan->assignRole('basicplan');
     }
 }

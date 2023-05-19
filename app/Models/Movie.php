@@ -30,7 +30,10 @@ class Movie extends Model
         'production',
 		'website',
 		'response',
-        'is_premium_content'
+        'is_premium_content',
+        'rent_price',
+        'rent_period',
+        'tags'
     ];
 
     /**

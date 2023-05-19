@@ -31,12 +31,11 @@ class CheckAdminMiddleware extends Controller
             switch ($role) {
                    
                     case 'basicplan':
-                      return redirect()->route('user.dashboard');
+                      return redirect()->route('home');
                       break; 
 					 case 'premiumplan':
-                      return redirect()->route('user.dashboard');
-                      break; 
-                    
+                      return redirect()->route('home');
+                      break;
                   }
                   return $next($request);
         });

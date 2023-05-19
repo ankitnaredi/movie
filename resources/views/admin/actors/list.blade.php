@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title',"Movies list")
+@section('title',"Actors list")
 @section('content')
 <div class="row">
 	<div class="col-sm-12">
@@ -7,35 +7,25 @@
         	<div class="col-lg-12 grid-margin stretch-card">
             	<div class="card">
                 	<div class="card-body">
-                    	<h4 class="card-title">Movies</h4>
+                    	<h4 class="card-title">Actors</h4>
                         <div class="table-responsive">
                         	<table class="table">
                       <thead>
                         <tr>
-                          <th>Title</th>
-                          <th>Year</th>
-                          <th>Released</th>
-                          <th>Runtime</th>
-                          <th>Director</th>
-                          <th>Type</th>
-                          <th>Is premium</th>
+                          <th>Name</th>
+                          
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                      @if(count($movies) > 0)
-                      @foreach($movies as $movie)
+                      @if(count($actors) > 0)
+                      @foreach($actors as $actor)
                       	<tr>
-                        	<td>{{ucfirst($movie->title)}}</td>
-                            <td>{{$movie->year}}</td>
-                            <td>{{$movie->released}}</td>
-                            <td>{{$movie->runtime}} {{Helper::getMovieMeta($movie->id,'runtimeType')}}</td>
-                            <td>{{ucfirst($movie->director)}}</td>
-                            <td>{{ucfirst($movie->type)}}</td>
-                            <td>{{ucfirst($movie->is_premium_content)}}</td>
+                        	<td>{{ucfirst($actor->name)}}</td>
+                            
                             <td>
-                            	<a href="{{route('admin.movies.edit',$movie->id)}}"><i class="fas fa-edit"></i></a> / 
-                                <a  href="{{route('admin.movies.delete',$movie->id)}}" class="delete"><i class="fas fa-trash"></i></a>
+                            	<a href="{{route('admin.actors.edit',$actor->id)}}"><i class="fas fa-edit"></i></a> / 
+                                <a  href="{{route('admin.actors.delete',$actor->id)}}" class="delete"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
              		  @endforeach
@@ -62,7 +52,7 @@
         e.preventDefault();
         var that = $(this);
         Swal.fire({
-        title: 'Do you want to delete this movie',
+        title: 'Do you want to delete this actor',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
