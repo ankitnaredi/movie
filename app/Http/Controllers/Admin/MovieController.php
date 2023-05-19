@@ -27,29 +27,27 @@ class MovieController extends CheckAdminMiddleware
 		$data = $request->all();
 		$messages = ['title.required'=>'Title is required.','year.required'=>'Year is required.','rated'=>'Numeric value is required.'];
 		$request->validate([
-			'title' => 'required|max:255',
+			'title' => 'required|max:255|unique:movies',
 			'year' => 'required|numeric|max:9999|min:1000',
 		],$messages);
-		$rated = is_numeric($request->rated)?$request->rated:0;
-		$runtime = is_numeric($request->runtime)?$request->runtime:0;
-		$metascore = is_numeric($request->metascore)?$request->metascore:0;
-		$imdbRating = is_numeric($request->imdbRating)?$request->imdbRating:0;
-		$imdbVotes = is_numeric($request->imdbVotes)?$request->imdbVotes:0;
+		
+		$actors = is_array($request->actors)?$request->actors:[];
+		$actorsText=implode(',',$actors);
 		$movie=Movie::create([
 			'title'=>$request->title,
-			'year'=>$request->year,
-			'rated'=>$rated,
+			'year'=>(int)filter_var($data['year'], FILTER_SANITIZE_NUMBER_INT),
+			'rated'=>$request->rated,
 			'released'=>$request->released,
-			'runtime'=>$runtime,
+			'runtime'=>$request->runtime,
 			'genre'=>$request->genre,
 			'tags'=>$request->tags,
 			'director'=>$request->director,
 			'writer'=>$request->writer,
-			'actors'=>$request->actors,
+			'actors'=>$actorsText,
 			'plot'=>$request->plot,
-			'metascore'=>$metascore,
-			'imdbRating'=>$imdbRating,
-			'imdbVotes'=>$imdbVotes,
+			'metascore'=>$request->metascore,
+			'imdbRating'=>$request->imdbRating,
+			'imdbVotes'=>$request->imdbVotes,
 			'imdbID'=>$request->imdbid,
 			'type'=>$request->type,
 			'DVD'=>$request->dvd,
@@ -57,8 +55,8 @@ class MovieController extends CheckAdminMiddleware
 			'production'=>$request->production,
 			'website'=>$request->website,
 			'is_premium_content'=>$request->is_premium,
-			'rent_period'=>(is_numeric($request->rent_period,'')!=0)?$request->rent_period:0,
-			'rent_price'=>(is_numeric($request->rent_price,'')!=0)?$request->rent_price:0,
+			'rent_period'=>(is_numeric($request->rent_period))?$request->rent_period:0,
+			'rent_price'=>(is_numeric($request->rent_price))?$request->rent_price:0,
 		]);
 		
 		$this->insertMovieMeta($movie->id,'poster',$data['Poster']);
@@ -134,26 +132,25 @@ class MovieController extends CheckAdminMiddleware
 			'title' => 'required|max:255',
 			'year' => 'required|numeric|max:9999|min:1000',
 		],$messages);
-		$rated = is_numeric($request->rated)?$request->rated:0;
-		$runtime = is_numeric($request->runtime)?$request->runtime:0;
-		$metascore = is_numeric($request->metascore)?$request->metascore:0;
-		$imdbRating = is_numeric($request->imdbRating)?$request->imdbRating:0;
-		$imdbVotes = is_numeric($request->imdbVotes)?$request->imdbVotes:0;
+		
+		
+		$actors = is_array($request->actors)?$request->actors:[];
+		$actorsText=implode(',',$actors);
 		Movie::whereId($id)->update([
 			'title'=>$request->title,
-			'year'=>$request->year,
-			'rated'=>$rated,
+			'year'=>(int)filter_var($data['year'], FILTER_SANITIZE_NUMBER_INT),
+			'rated'=>$request->rated,
 			'released'=>$request->released,
-			'runtime'=>$runtime,
+			'runtime'=>$request->runtime,
 			'genre'=>$request->genre,
 			'tags'=>$request->tags,
 			'director'=>$request->director,
 			'writer'=>$request->writer,
-			'actors'=>$request->actors,
+			'actors'=>$actorsText,
 			'plot'=>$request->plot,
-			'metascore'=>$metascore,
-			'imdbRating'=>$imdbRating,
-			'imdbVotes'=>$imdbVotes,
+			'metascore'=>$request->metascore,
+			'imdbRating'=>$request->imdbRating,
+			'imdbVotes'=>$request->imdbVotes,
 			'imdbID'=>$request->imdbid,
 			'type'=>$request->type,
 			'DVD'=>$request->dvd,
@@ -161,14 +158,14 @@ class MovieController extends CheckAdminMiddleware
 			'production'=>$request->production,
 			'website'=>$request->website,
 			'is_premium_content'=>$request->is_premium,
-			'rent_period'=>(is_numeric($request->rent_period,'')!=0)?$request->rent_period:0,
-			'rent_price'=>(is_numeric($request->rent_price,'')!=0)?$request->rent_price:0,
-			
+			'rent_period'=>(is_numeric($request->rent_period))?$request->rent_period:0,
+			'rent_price'=>(is_numeric($request->rent_price))?$request->rent_price:0,
 		]);
-		$this->insertMovieMeta($movie->id,'poster',$data['Poster']);
-		$this->insertMovieMeta($movie->id,'Language',$data['Language']);
-		$this->insertMovieMeta($movie->id,'Country',$data['Country']);
-		$this->insertMovieMeta($movie->id,'Awards',$data['Awards']);
+		
+		$this->insertMovieMeta($id,'poster',$data['Poster']);
+		$this->insertMovieMeta($id,'Language',$data['Language']);
+		$this->insertMovieMeta($id,'Country',$data['Country']);
+		$this->insertMovieMeta($id,'Awards',$data['Awards']);
 		Session::flash('message','Movie has been saved.');
 		return redirect()->route('admin.movies.list');
 	}
@@ -222,9 +219,16 @@ class MovieController extends CheckAdminMiddleware
 			{
 				return response()->json(['success'=>false,'error'=>true,'message'=>'Movie not found.']);
 			}
+			$actors=(isset($data['Actors']))?$data['Actors']:'';
+			$actorsArray = explode(',',$actors);
+			foreach($actorsArray as $actor)
+			{
+				$this->insertActor($actor);
+			}
+			
 			$movie=Movie::create([
 				'title'=>$data['Title'],
-				'year'=>$data['Year'],
+				'year'=>(int)filter_var($data['Year'], FILTER_SANITIZE_NUMBER_INT),
 				'rated'=>(isset($data['Released']))?$data['Rated']:'',
 				'released'=>(isset($data['Released']))?$data['Released']:'',
 				'runtime'=>(isset($data['Runtime']))?$data['Runtime']:'',

@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 @section('title',"Add Movie")
 @section('content')
+@php
+  $actors = Helper::getallActors();
+@endphp
 <div class="row">
 	<div class="col-sm-12">
     	<div class="home-tab">
@@ -63,7 +66,13 @@
                         </div>
                         <div class="form-group">
                           <label for="actors">Actors</label>
-                          <input type="text" class="form-control" name="actors" id="actors" placeholder="Actors" value="{{old('actors')}}">
+                          @php
+                          $actorOld = is_array(old('actors'))?old('actors'):[];
+                          @endphp
+                          @foreach($actors as $actor)
+                            <br><input type="checkbox" id="actors_{{$actor->id}}" @if(in_array($actor->name,$actorOld)) {{'checked'}} @endif name="actors[]" value="{{$actor->name}}"/> <label for="actors_{{$actor->id}}">{{$actor->name}}</label>
+                          @endforeach
+                         
                           <span class="text-danger actorsError">@error('actors'){{$message}}@enderror</span>
                         </div>
                         <div class="form-group">

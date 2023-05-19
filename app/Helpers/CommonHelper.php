@@ -2,6 +2,7 @@
 namespace App\Helpers;
 use App\Models\Movie;
 use App\Models\MovieMeta;
+use App\Models\Actors;
 class CommonHelper
 {
     public static function shout(string $string)
@@ -28,6 +29,10 @@ class CommonHelper
 	public static function getAllMoviesObject()
 	{
 		return Movie::get();
+	}
+	public static function getallActors()
+	{
+		return Actors::all();
 	}
 }
 ?>

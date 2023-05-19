@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 @section('title',"Edit Movie")
 @section('content')
+@php
+  $actors = Helper::getallActors();
+@endphp
 <div class="row">
 	<div class="col-sm-12">
     	<div class="home-tab">
@@ -58,9 +61,15 @@
                           <span class="text-danger writerError">@error('writer'){{$message}}@enderror</span>
                         </div>
                         <div class="form-group">
-                          <label for="actors">Actors</label>
-                          <input type="text" class="form-control" name="actors" id="actors" value="{{$movie->actors}}" placeholder="Actors">
-                          <span class="text-danger actorsError">@error('actors'){{$message}}@enderror</span>
+                        <label for="actors">Actors</label>
+                        @php
+                          $actorN=$movie->actors;
+                          $actorNArray=explode(',',$actorN)
+                        @endphp
+                          @foreach($actors as $actor)
+                          <br><input type="checkbox" id="actors_{{$actor->id}}" @if(in_array($actor->name,$actorNArray)) {{'checked'}} @endif name="actors[]" value="{{$actor->name}}"/> <label for="actors_{{$actor->id}}">{{$actor->name}}</label>
+                          @endforeach
+                        <span class="text-danger actorsError">@error('actors'){{$message}}@enderror</span>
                         </div>
                         <div class="form-group">
                           <label for="plot">Plot</label>
