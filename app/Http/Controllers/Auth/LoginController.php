@@ -48,8 +48,7 @@ class LoginController extends Controller
                 return redirect()->route('login');
             }
             $userId=Auth::guard('web')->user()->id;
-			echo "dsafDSA";
-			die;
+		
                 $user=User::whereId($userId)->with('roles')->first();
                 $role = 'basicplan';
                 if(isset($user->roles[0]->name))
