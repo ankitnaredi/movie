@@ -48,9 +48,6 @@
                           <a href="{{ route('password.request') }}" class="auth-link text-black">{{ __('Forgot Your Password?') }}</a>
                            @endif
                         </div>
-                        
-
-                        
                     </form>
                 
 @endsection

@@ -14,17 +14,52 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{{asset('/public/css/vertical-layout-light/style.css')}}">
+  <link rel="stylesheet" href="{{asset('/public/css/fontawesome/all.min.css')}}">
+  <link rel="stylesheet" href="{{asset('/public/css/custom.css')}}">
   <!-- endinject -->
+  <script src="{{asset('public/js/fontawesome/all.min.js')}}"></script>
   <link rel="shortcut icon" href="{{asset('/public/images/favicon.png')}}" />
-
-	<title> @yield('title')</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{{asset('public/vendors/js/vendor.bundle.base.js')}}"></script>
+      <script src="{{asset('public/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+  	  <script src="{{asset('public/vendors/progressbar.js/progressbar.min.js')}}"></script>
+      <!-- endinject -->
+      <script src="{{asset('public/js/dashboard.js')}}"></script>
+      <script src="{{asset('public/js/common.js')}}"></script>
+	<title>@yield('title')</title>
 
 
 
 </head>
 <body>
     <div class="container-scroller">
-    	
+        <div class="overlay"></div>
+        <div class="acoda-spinner">
+            <img src="{{asset('public/images/loader.gif')}}" />
+        </div>
+    	 @include('layouts.admin.top')
+         <div class="container-fluid page-body-wrapper">
+            	@include('layouts.admin.sidebar')
+                <div class="main-panel">
+        			<div class="content-wrapper">
+              @if(Session::has('message'))
+                <div class="successmsg">
+                    <h4>{{ Session::get('message') }}</h4>
+                </div>
+              
+            @endif
+                    	@yield('content')
+                    </div>
+                    <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2023. All rights reserved.</span>
+          </div>
+        </footer>
+                </div>
+         </div>
     </div>
+      <!-- plugins:js -->
+	  
 </body>
 </html>

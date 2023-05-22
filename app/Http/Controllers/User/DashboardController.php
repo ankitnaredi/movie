@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
+use Helper;
+use App\Models\Movie;
+use App\Models\MovieMeta;
 class DashboardController extends Controller
 {
     /**
@@ -48,4 +51,9 @@ class DashboardController extends Controller
     {
         return view('user.dashboard');
     }
+	public function logout()
+	{
+		Auth::guard('web')->logout();
+        return redirect()->route('login');
+	}
 }

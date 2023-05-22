@@ -31,19 +31,19 @@ class RedirectIfAuthenticated
                 {
                     $role = $user->roles[0]->name;
                 }
-
+               
                  switch ($role) {
                     case 'admin':
                       return redirect()->route('admin.dashboard');
                       break;
                     case 'basicplan':
-                      return redirect()->route('user.dashboard');
+                      return redirect()->route('home');
                       break; 
-					case 'premiumplan':
-                      return redirect()->route('user.dashboard');
+					          case 'premiumplan':
+                      return redirect()->route('home');
                       break;
                     default:
-                      return redirect()->route('user.dashboard');
+                      return redirect()->route('home');
                     break;
                   }
             }
